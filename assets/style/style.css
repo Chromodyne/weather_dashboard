@@ -2,3 +2,8 @@ nav {
     background-color: blue;
     color: white;
 }
+
+#weather-box {
+    border: 2px solid black;
+    margin-top: 10px;
+}
