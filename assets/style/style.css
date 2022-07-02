@@ -11,3 +11,11 @@ nav {
 #search-for-label {
     font-size: 30px;
 }
+
+.card {
+   margin-right: 5rem;
+   margin-top: 1rem;
+   color: white;
+   width: 15rem;
+   height: 15rem
+}
