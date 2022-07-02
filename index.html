@@ -8,6 +8,7 @@
         <title>Weather Dashboard</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="./assets/style/style.css">
 
     </head>
@@ -29,26 +30,26 @@
                     <label for="city-search" id="search-for-label">Search for a city:</label>
                     <input type="text" class="form-control" id="city-search" placeholder="Las Vegas">
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-2" id="search-submit">Submit</button>
                         <hr>
-                        <button class="btn btn-secondary">Austin</button><br>
-                        <button class="btn btn-secondary">Chicago</button><br>
-                        <button class="btn btn-secondary">New York</button><br>
-                        <button class="btn btn-secondary">Orlando</button><br>
-                        <button class="btn btn-secondary">San Francisco</button><br>
-                        <button class="btn btn-secondary">Seattle</button><br>
-                        <button class="btn btn-secondary">Denver</button><br>
-                        <button class="btn btn-secondary">Atlanta</button>
+                        <button class="btn btn-secondary" id="preset-1">Austin</button><br>
+                        <button class="btn btn-secondary" id="preset-2">Chicago</button><br>
+                        <button class="btn btn-secondary" id="preset-3">New York</button><br>
+                        <button class="btn btn-secondary" id="preset-4">Orlando</button><br>
+                        <button class="btn btn-secondary" id="preset-5">San Francisco</button><br>
+                        <button class="btn btn-secondary" id="preset-6">Seattle</button><br>
+                        <button class="btn btn-secondary" id="preset-7">Denver</button><br>
+                        <button class="btn btn-secondary" id="preset-8">Atlanta</button>
                     </div>
 
                 </div>
                 <div class="col-9">
                   <div class="pb-3" id="weather-box">
                     <h2>City Name</h2>
-                    <p>Temp: </p>
-                    <p>Wind: </p>
-                    <p>Humidity: </p>
-                    <p>UV Index: </p>
+                    <h5>Temp: </h5>
+                    <h5>Wind: </h5>
+                    <h5>Humidity: </h5>
+                    <h5>UV Index: </h5>
                   </div>
                   <div class="row">
                     <div class="col-12">
@@ -109,6 +110,7 @@
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
         <script src="./assets/js/script.js" ></script>
 
     </body>
