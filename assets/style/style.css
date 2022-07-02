@@ -7,3 +7,7 @@ nav {
     border: 2px solid black;
     margin-top: 10px;
 }
+
+#search-for-label {
+    font-size: 30px;
+}
