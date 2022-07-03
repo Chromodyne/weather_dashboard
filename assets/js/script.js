@@ -25,47 +25,55 @@ function initiateSearch() {
 
     let searchTerm = document.getElementById("city-search").value;
 
-    console.log(searchTerm);
-    grabFromAPI(searchTerm);
+    getGeocoding(searchTerm);
+    // grabFromAPI(searchTerm);
 
 }
 
-//This function is called when the user clicks one of the city preset buttons.
-function initiatePresetSearch() {
-    
-    let searchTerm;
+//The openweather API requires latitude and longitude to get full information, therefore, we must use Geocoding
+//to get those coordinates from a city name before making another API request to get the actual weather info.
+function getGeocoding(cityName) {
 
-    grabFromAPI(searchTerm);
+    let key = "fcce58844e534ec514a18075dfac20f5";
+
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${key}`).then(
+        (resp) => {return resp.json(); }).then(
+            (data) => {
+                console.log(data);
+                grabFromAPI(data);
+            });
 
 }
 
-function grabFromAPI(cityName) {
+function grabFromAPI(geoData) {
 
     //This is my API key for Openweather.
     let key = "fcce58844e534ec514a18075dfac20f5";
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${key}`).then(
+    let latitude = geoData[0].lat;
+    let longitude = geoData[0].lon;
+
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=imperial&appid=${key}`).then(
     (resp) => {return resp.json() }).then(
          (data) => { 
             console.log(data);
-            populateBoxes(data) });
+            });
 
-    fetch
+}
+
+function getUVIndex(data) {
+
+    let latitude = data.city.coord.lat;
+    let longitude = data.city.coord.lon;
 
 }
 
 function populateBoxes(data) {
 
-    //By default the API returns units Kelvin which needs to be converted to
-    //degrees Fahrenheit.
+    //getUVIndex(data);
+
     let currentTemp = data.main.temp;
-    let convertedTemp = convertToFahrenheit(currentTemp);
-
-    //By default the API returns meters/second which needs to be converted to
-    //miles per hour.
     let windSpeed = data.wind.speed;
-    let convertedWindSpeed = convertToMPH(windSpeed);
-
     let humidity = data.main.humidity;
 
     //TODO: Look into this. It may not be available in the free version of the API.
