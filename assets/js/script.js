@@ -1,4 +1,5 @@
 //These are the cities available in the JQuery UI autocomplete for the search box.
+//Far from an exhaustive list.
 let cityChoices = [
     "Atlanta",
     "Austin",
@@ -11,21 +12,63 @@ let cityChoices = [
     "Orlando",
     "Los Angeles",
     "New Orleans",
-    "San Diego"
+    "San Diego",
+    "Portland",
+    "Jacksonville",
+    "Tampa",
+    "Boston",
+    "Topeka",
+    "Milwaukee",
+    "Minneapolis"
 ];
 
 //This is the autocomplete functionality for the city search box.
 $( function() { $( "#city-search" ).autocomplete({ source: cityChoices }); });
 
 //Sets up the event listener for the search button and box.
-document.getElementById("search-submit").addEventListener("click", initiateSearch);
+document.getElementById("search-submit").addEventListener("click", () => {
+    initiateSearch();
+});
+
+addHistoryListeners();
+
+//Adds event listeners to all the buttons in the history list.
+function addHistoryListeners() {
+    
+    let historyItems = document.querySelectorAll(".history");
+
+    for (let i = 0; i < historyItems.length; i++) {
+        historyItems[i].addEventListener("click", passHistory);
+    }
+
+}
+
+//Takes the event passed by the history event listeners, gets the text content of the button clicked
+//and then passes it to the initiateSearch function.
+function passHistory(event) {
+
+    let clickedButton = event.currentTarget.id;
+
+    let text = document.getElementById(clickedButton).textContent;
+
+    initiateSearch(text);
+
+}
 
 //This function performs the searching of the Openweather API.
-function initiateSearch() {
+function initiateSearch(passed) {
 
-    let searchTerm = document.getElementById("city-search").value;
+    let searchTerm;
 
-    addToSearchHistory(searchTerm);
+    //Check to see if the passed value is null or undefined. If it is, the user has clicked a
+    //history button so we need to use the term passed for searching. If not, the user has
+    //entered text in the search box and we do not need it.
+    if (passed !== null && passed !== undefined) {
+        searchTerm = passed;
+    } else {
+         searchTerm = document.getElementById("city-search").value;
+         addToSearchHistory(searchTerm);
+    }
 
     getGeocoding(searchTerm);
 
@@ -46,6 +89,7 @@ function getGeocoding(cityName) {
 
 }
 
+//This function grabs from Openweather using the OneCall API.
 function grabFromAPI(geoData, cityName) {
 
     //This is my API key for Openweather.
@@ -63,6 +107,8 @@ function grabFromAPI(geoData, cityName) {
 
 }
 
+//This function populates the current day weather box then calls populateForecast to populate those
+//boxes with the 5 day forecast.
 function populateBoxes(data, cityName) {
 
     let currentTemp = data.current.temp;
@@ -90,8 +136,6 @@ function populateForecast(data) {
     for (let i = 0; i < 5; i++) {
         relevantDays[i] = data.daily[i];
     }
-
-    console.log(relevantDays);
 
     for(i = 1; i <= 5; i++) {
         let futureDate = new moment().add(i, "days");
