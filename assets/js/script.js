@@ -31,6 +31,8 @@ document.getElementById("search-submit").addEventListener("click", () => {
 });
 
 addHistoryListeners();
+loadPreviousCity();
+loadHistoryList();
 
 //Adds event listeners to all the buttons in the history list.
 function addHistoryListeners() {
@@ -83,7 +85,6 @@ function getGeocoding(cityName) {
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${key}`).then(
         (resp) => {return resp.json(); }).then(
             (data) => {
-                console.log(data);
                 grabFromAPI(data, cityName);
             });
 
@@ -101,7 +102,6 @@ function grabFromAPI(geoData, cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${key}`).then(
     (resp) => {return resp.json() }).then(
          (data) => {
-            console.log(data);
             populateBoxes(data, cityName);
             });
 
@@ -124,6 +124,7 @@ function populateBoxes(data, cityName) {
     document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
     document.getElementById("uv-index").textContent = `UV Index: ${uvIndex}`;
 
+    saveHistory(cityName);
     populateForecast(data);
 
 }
@@ -169,12 +170,40 @@ function addToSearchHistory(cityName) {
 }
 
 //This function saves the previous search result and historical results in localStorage so they can be retrieved.
-function saveHistory() {
+function saveHistory(cityName) {
+
+    localStorage.setItem("lastCity", cityName);
+    for (let i = 1; i <= 8; i++) {
+        let historicalItem = document.getElementById(`history-${i}`).textContent;
+        localStorage.setItem(`history-${i}`, historicalItem);
+    }
 
 }
 
-//This function loads the previously saved search result on page load.
-function loadHistory() {
+//This function loads the previously searched result on page load.
+function loadPreviousCity() {
 
+    let previousSearch = localStorage.getItem("lastCity");
+
+    //Check if the user has anything stored in localStorage. If so, search for that.
+    //If not, pick the first item from the history list.
+    if (previousSearch !== null) {
+        console.log("Initiating previous search: " + previousSearch);
+        initiateSearch(previousSearch);
+    } else {
+        let defaultCity = document.getElementById("history-1").textContent;
+        initiateSearch(defaultCity);
+    }
+
+    
 }
 
+//This function returns the search history list to where it should be on page load.
+function loadHistoryList() {
+
+    for (let i = 1; i <= 8; i++) {
+        let loadedCity = localStorage.getItem(`history-${i}`);
+        document.getElementById(`history-${i}`).textContent = loadedCity;
+    }
+
+}
