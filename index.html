@@ -31,7 +31,7 @@
                     <label for="city-search" id="search-for-label">Search for a city:</label>
                     <input type="text" class="form-control" id="city-search" placeholder="Las Vegas">
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary mt-2" id="search-submit">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-2" id="search-submit">Search</button>
                         <hr>
                         <button class="btn btn-secondary history" id="history-1">Austin</button><br>
                         <button class="btn btn-secondary history" id="history-2">Chicago</button><br>
@@ -51,13 +51,17 @@
                     <h5 id="temperature">Temp: </h5>
                     <h5 id="wind-speed">Wind: </h5>
                     <h5 id="humidity">Humidity: </h5>
-                    <h5 id="uv-index">UV Index: </h5>
+                    <div>
+                        <h5>UV Index: 
+                            <span id="uv-index">Number</span>
+                        </h5>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-12">
                         <h2>5-Day Forecast:</h2>
                         <div class="row">
-                            <div class="card bg-primary">
+                            <div class="card bg-primary first-card">
                                 <div class="card-body">
                                     <h4 class="card-title" id="day1">Date</h5>
                                     <img src="#" class="card-text" id="day1-icon"></img>
@@ -93,8 +97,8 @@
                                     <h6 class="card-text" id="day4-humidity">Humidity: </h6>
                                 </div>
                             </div>
-                            <div class="card bg-primary">
-                                <div class="card-body">
+                            <div class="card bg-dark">
+                                <div class="card-body bg-dark">
                                     <h4 class="card-title" id="day5">Date</h5>
                                     <img src="#" class="card-text" id="day5-icon"></img>
                                     <h6 class="card-text" id="day5-temp">Temp: </h6>

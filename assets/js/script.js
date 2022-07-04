@@ -111,18 +111,20 @@ function grabFromAPI(geoData, cityName) {
 //boxes with the 5 day forecast.
 function populateBoxes(data, cityName) {
 
+    let currentDate = moment().format("MM/DD/YY");
+
     let currentTemp = data.current.temp;
     let windSpeed = data.current.wind_speed;
     let humidity = data.current.humidity;
     let uvIndex = data.current.uvi;
     let weatherIcon = `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
 
-    document.getElementById("city-name").textContent = `${cityName}`;
+    document.getElementById("city-name").textContent = `${cityName} (${currentDate})`;
     document.getElementById("main-icon").setAttribute("src", weatherIcon);
     document.getElementById("temperature").textContent = `Temp: ${currentTemp}℉`;
     document.getElementById("wind-speed").textContent = `Wind: ${windSpeed} MPH`;
     document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
-    document.getElementById("uv-index").textContent = `UV Index: ${uvIndex}`;
+    document.getElementById("uv-index").textContent = `${uvIndex}`;
     styleUVIndex();
 
     saveHistory(cityName);
@@ -212,18 +214,24 @@ function loadHistoryList() {
 function styleUVIndex() {
 
     let uvValue = document.getElementById("uv-index").textContent;
-    let uvContainer = document.getElementById("uv-index").style.backgroundColor;
+    let uvContainer = document.getElementById("uv-index");
 
     if (uvValue >= 0 && uvValue <= 2) {
-        uvContainer = "green";
+        uvContainer.style.backgroundColor = "green";
+        uvContainer.style.color = "white";
     } else if (uvValue > 2 && uvValue <= 5) {
-        uvContainer = "yellow"
+        uvContainer.style.backgroundColor = "yellow"
+        uvContainer.style.color = "black";
     } else if (uvValue > 5 && uvValue <= 7) {
-        uvContainer = "orange";
+        uvContainer.style.backgroundColor = "orange";
+        uvContainer.style.color = "black";
+
     } else if (uvValue > 7 && uvValue <= 9) {
-        uvContainer = "red";
+        uvContainer.style.backgroundColor = "red";
+        uvContainer.style.color = "white";
     } else if (uvValue > 9) {
-        uvContainer = "purple";
+        uvContainer.style.backgroundColor = "purple";
+        uvContainer.style.color = "white";
     }
 
 }
