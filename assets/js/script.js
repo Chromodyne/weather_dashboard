@@ -25,8 +25,9 @@ function initiateSearch() {
 
     let searchTerm = document.getElementById("city-search").value;
 
+    addToSearchHistory(searchTerm);
+
     getGeocoding(searchTerm);
-    // grabFromAPI(searchTerm);
 
 }
 
@@ -106,5 +107,30 @@ function populateForecast(data) {
         document.getElementById(`day${i+1}-humidity`).textContent = `Humidity: ${relevantDays[i].humidity}%`;
     }
         
+}
+
+//Changes the search history when a new search is entered.
+function addToSearchHistory(cityName) {
+
+    for (let i = 8; i > 2; i--) {
+
+        document.getElementById(`history-${i}`).textContent = document.getElementById(`history-${i - 1}`).textContent;
+        
+    }
+    
+    document.getElementById("history-2").textContent = document.getElementById("history-1").textContent;
+
+    document.getElementById("history-1").textContent = cityName;   
+
+}
+
+//This function saves the previous search result and historical results in localStorage so they can be retrieved.
+function saveHistory() {
+
+}
+
+//This function loads the previously saved search result on page load.
+function loadHistory() {
+
 }
 
