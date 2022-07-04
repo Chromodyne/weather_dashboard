@@ -123,6 +123,7 @@ function populateBoxes(data, cityName) {
     document.getElementById("wind-speed").textContent = `Wind: ${windSpeed} MPH`;
     document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
     document.getElementById("uv-index").textContent = `UV Index: ${uvIndex}`;
+    styleUVIndex();
 
     saveHistory(cityName);
     populateForecast(data);
@@ -204,6 +205,25 @@ function loadHistoryList() {
     for (let i = 1; i <= 8; i++) {
         let loadedCity = localStorage.getItem(`history-${i}`);
         document.getElementById(`history-${i}`).textContent = loadedCity;
+    }
+
+}
+
+function styleUVIndex() {
+
+    let uvValue = document.getElementById("uv-index").textContent;
+    let uvContainer = document.getElementById("uv-index").style.backgroundColor;
+
+    if (uvValue >= 0 && uvValue <= 2) {
+        uvContainer = "green";
+    } else if (uvValue > 2 && uvValue <= 5) {
+        uvContainer = "yellow"
+    } else if (uvValue > 5 && uvValue <= 7) {
+        uvContainer = "orange";
+    } else if (uvValue > 7 && uvValue <= 9) {
+        uvContainer = "red";
+    } else if (uvValue > 9) {
+        uvContainer = "purple";
     }
 
 }
