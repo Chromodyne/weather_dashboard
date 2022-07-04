@@ -40,12 +40,12 @@ function getGeocoding(cityName) {
         (resp) => {return resp.json(); }).then(
             (data) => {
                 console.log(data);
-                grabFromAPI(data);
+                grabFromAPI(data, cityName);
             });
 
 }
 
-function grabFromAPI(geoData) {
+function grabFromAPI(geoData, cityName) {
 
     //This is my API key for Openweather.
     let key = "fcce58844e534ec514a18075dfac20f5";
@@ -53,35 +53,43 @@ function grabFromAPI(geoData) {
     let latitude = geoData[0].lat;
     let longitude = geoData[0].lon;
 
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=imperial&appid=${key}`).then(
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${key}`).then(
     (resp) => {return resp.json() }).then(
-         (data) => { 
+         (data) => {
             console.log(data);
+            populateBoxes(data, cityName);
             });
 
 }
 
-function getUVIndex(data) {
+function populateBoxes(data, cityName) {
 
-    let latitude = data.city.coord.lat;
-    let longitude = data.city.coord.lon;
+    let currentTemp = data.current.temp;
+    let windSpeed = data.current.wind_speed;
+    let humidity = data.current.humidity;
+    let uvIndex = data.current.uvi;
+    let weatherIcon = data.current.weather[0].icon;
 
-}
-
-function populateBoxes(data) {
-
-    //getUVIndex(data);
-
-    let currentTemp = data.main.temp;
-    let windSpeed = data.wind.speed;
-    let humidity = data.main.humidity;
-
-    //TODO: Look into this. It may not be available in the free version of the API.
-    let uvIndex;
-
-    document.getElementById("city-name").textContent = data.name;
+    document.getElementById("city-name").textContent = `${cityName} ${weatherIcon}`;
     document.getElementById("temperature").textContent = `Temp: ${currentTemp}℉`;
     document.getElementById("wind-speed").textContent = `Wind: ${windSpeed} MPH`;
     document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
+    document.getElementById("uv-index").textContent = `UV Index: ${uvIndex}`;
+
+    populateForecast(data);
+
+}
+
+//This function populates the 5-day forecast boxes.
+function populateForecast(data) {
+
+    let relevantDays = [];
+    
+    for (let i = 0; i < 5; i++) {
+        relevantDays[i] = data.daily[i];
+        
+    }
+
+    console.log(relevantDays);
 
 }
