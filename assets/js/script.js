@@ -68,9 +68,10 @@ function populateBoxes(data, cityName) {
     let windSpeed = data.current.wind_speed;
     let humidity = data.current.humidity;
     let uvIndex = data.current.uvi;
-    let weatherIcon = data.current.weather[0].icon;
+    let weatherIcon = `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
 
-    document.getElementById("city-name").textContent = `${cityName} ${weatherIcon}`;
+    document.getElementById("city-name").textContent = `${cityName}`;
+    document.getElementById("main-icon").setAttribute("src", weatherIcon);
     document.getElementById("temperature").textContent = `Temp: ${currentTemp}℉`;
     document.getElementById("wind-speed").textContent = `Wind: ${windSpeed} MPH`;
     document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
