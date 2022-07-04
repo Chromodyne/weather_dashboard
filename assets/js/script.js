@@ -87,9 +87,22 @@ function populateForecast(data) {
     
     for (let i = 0; i < 5; i++) {
         relevantDays[i] = data.daily[i];
-        
     }
 
     console.log(relevantDays);
 
+    for(i = 1; i <= 5; i++) {
+        let futureDate = new moment().add(i, "days");
+        document.getElementById(`day${i}`).textContent = futureDate.format("MM/DD/YYYY");
+    }
+
+    for (i = 0; i < 5; i++) {
+        //let currentIcon = 
+        //document.getElementById(`day${i+1}-icon`).textContent = `Temp: ${relevantDays[i].temp.max}℉`;
+        document.getElementById(`day${i+1}-temp`).textContent = `Temp: ${relevantDays[i].temp.max}℉`;
+        document.getElementById(`day${i+1}-wind`).textContent = `Wind: ${relevantDays[i].wind_speed} MPH`;
+        document.getElementById(`day${i+1}-humidity`).textContent = `Humidity: ${relevantDays[i].humidity}%`;
+    }
+        
 }
+
