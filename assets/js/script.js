@@ -215,8 +215,13 @@ function loadPreviousCity() {
 function loadHistoryList() {
 
     for (let i = 1; i <= 8; i++) {
-        let loadedCity = localStorage.getItem(`history-${i}`);
+
+        let historyStuff = localStorage.getItem(`history-${i}`);
+
+        if(historyStuff !== null && historyStuff !== undefined && historyStuff !== "")  {
+            let loadedCity = localStorage.getItem(`history-${i}`);
         document.getElementById(`history-${i}`).textContent = loadedCity;
+        }
     }
 
 }
