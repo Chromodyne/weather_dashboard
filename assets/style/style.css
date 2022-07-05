@@ -17,9 +17,11 @@ nav {
 .card {
    margin-right: 5rem;
    margin-top: 1rem;
+   margin-left: 10px;
    color: white;
    width: 16rem;
    height: 16rem;
+   background-color: #262666;
 }
 
 #uv-index {

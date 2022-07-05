@@ -19,10 +19,17 @@ let cityChoices = [
     "Boston",
     "Topeka",
     "Milwaukee",
-    "Minneapolis"
+    "Minneapolis",
+    "Honolulu",
+    "Dallas",
+    "Augusta",
+    "Buffalo",
+    "Phoenix",
+    "Albuquerque",
+    "Houston"
 ];
 
-//This is the autocomplete functionality for the city search box.
+//This is the autocomplete functionality for the city search box. Uses JQuery UI.
 $( function() { $( "#city-search" ).autocomplete({ source: cityChoices }); });
 
 //Sets up the event listener for the search button and box.
@@ -30,6 +37,7 @@ document.getElementById("search-submit").addEventListener("click", () => {
     initiateSearch();
 });
 
+//On page load function calls.
 addHistoryListeners();
 loadPreviousCity();
 loadHistoryList();
@@ -135,8 +143,10 @@ function populateBoxes(data, cityName) {
 //This function populates the 5-day forecast boxes.
 function populateForecast(data) {
 
+    // Empty array to store api day data.
     let relevantDays = [];
     
+    // Iterate through API response for daily forecasts and pull the first five.
     for (let i = 0; i < 5; i++) {
         relevantDays[i] = data.daily[i];
     }
@@ -211,6 +221,8 @@ function loadHistoryList() {
 
 }
 
+//This function colors the UV index item based on the thresholds specificed by the US
+//Environmental Protection Agency.
 function styleUVIndex() {
 
     let uvValue = document.getElementById("uv-index").textContent;
@@ -225,7 +237,6 @@ function styleUVIndex() {
     } else if (uvValue > 5 && uvValue <= 7) {
         uvContainer.style.backgroundColor = "orange";
         uvContainer.style.color = "black";
-
     } else if (uvValue > 7 && uvValue <= 9) {
         uvContainer.style.backgroundColor = "red";
         uvContainer.style.color = "white";
