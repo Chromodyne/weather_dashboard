@@ -125,7 +125,7 @@ function populateBoxes(data, cityName) {
     let windSpeed = data.current.wind_speed;
     let humidity = data.current.humidity;
     let uvIndex = data.current.uvi;
-    let weatherIcon = `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
+    let weatherIcon = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
 
     document.getElementById("city-name").textContent = `${cityName} (${currentDate})`;
     document.getElementById("main-icon").setAttribute("src", weatherIcon);
@@ -201,7 +201,6 @@ function loadPreviousCity() {
     //Check if the user has anything stored in localStorage. If so, search for that.
     //If not, pick the first item from the history list.
     if (previousSearch !== null) {
-        console.log("Initiating previous search: " + previousSearch);
         initiateSearch(previousSearch);
     } else {
         let defaultCity = document.getElementById("history-1").textContent;
