@@ -158,7 +158,7 @@ function populateForecast(data) {
 
     for (i = 0; i < 5; i++) {
         let currentIcon = relevantDays[i].weather[0].icon;
-        let iconURL = `http://openweathermap.org/img/w/${currentIcon}.png`;
+        let iconURL = `https://openweathermap.org/img/w/${currentIcon}.png`;
         document.getElementById(`day${i+1}-icon`).setAttribute("src", iconURL);
         document.getElementById(`day${i+1}-temp`).textContent = `Temp: ${relevantDays[i].temp.max}℉`;
         document.getElementById(`day${i+1}-wind`).textContent = `Wind: ${relevantDays[i].wind_speed} MPH`;
@@ -219,7 +219,7 @@ function loadHistoryList() {
 
         if(historyStuff !== null && historyStuff !== undefined && historyStuff !== "")  {
             let loadedCity = localStorage.getItem(`history-${i}`);
-        document.getElementById(`history-${i}`).textContent = loadedCity;
+            document.getElementById(`history-${i}`).textContent = loadedCity;
         }
     }
 
